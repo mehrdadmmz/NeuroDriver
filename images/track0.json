@@ -1,0 +1,4 @@
+{
+  "_comment": "key 'checkpoints' is an array of arrays, each containing two numbers. The first number is the x-coordinate of the checkpoint, and the second number is the y-coordinate of the startin point of the cars.",
+  "checkpoints": [[550, 140]]
+}

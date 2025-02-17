@@ -1,11 +1,14 @@
 from pyglet.window import Window
 from pyglet.window import key
 from pyglet import image
-from pyglet.graphics import Batch  # pyglet uses batches to optimize rendering process
-from pyglet.sprite import Sprite  # display positioned, scaled and rotated images.
+# pyglet uses batches to optimize rendering process
+from pyglet.graphics import Batch
+# display positioned, scaled and rotated images.
+from pyglet.sprite import Sprite
 import time
 import random
 from car import Car
+from hud import Hud
 
 
 # create a canvas to draw on
@@ -16,15 +19,22 @@ class Canvas(Window):
         super().__init__(width=960, height=540, caption='Car Game')
         self.track = track
         self.is_simulating = True
-        self.background_batch = Batch()  # we keep adding elements to the batches --> first we added Sprite down below
+        # we keep adding elements to the batches --> first we added Sprite down below
+        self.background_batch = Batch()
         self.car_batch = Batch()
-        self.track_image_sprite = Sprite(track.track_image, batch=self.background_batch)
+        self.overlay_batch = Batch()
+        self.track_image_sprite = Sprite(
+            track.track_image, batch=self.background_batch)
+        self.track_overlay_sprite = Sprite(
+            track.track_overlay_image, batch=self.overlay_batch)
         self.car_images = [image.load(c) for c in car_image_paths]
 
-    def simulate_generation(self, networks):
+    def simulate_generation(self, networks, simulation_round):
+        self.hud = Hud(simulation_round, self.overlay_batch)
         self.car_sprites = []
-        for network in networks: # create a car for each network in the list
-            self.car_sprites.append(Car(network, random.choice(self.car_images), self.car_batch))
+        for network in networks:  # create a car for each network in the list
+            self.car_sprites.append(
+                Car(network, self.track, random.choice(self.car_images), self.car_batch))
         self.population_total = len(self.car_sprites)
         self.population_alive = self.population_total
         last_time = time.perf_counter()
@@ -45,11 +55,16 @@ class Canvas(Window):
                     car_sprite.shut_off()
         running_cars = [c for c in self.car_sprites if c.is_running]
         self.population_alive = len(running_cars)
+        if self.population_alive > 0:
+            self.hud.update(self.population_alive,
+                            # speed of the first car alive
+                            self.population_total, running_cars[0].speed)
 
     def draw(self):
         self.clear()
         self.background_batch.draw()
         self.car_batch.draw()
+        self.overlay_batch.draw()
         self.flip()
 
     def on_key_press(self, symbol, modifiers):
