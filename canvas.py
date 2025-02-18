@@ -1,14 +1,16 @@
-from pyglet.window import Window
-from pyglet.window import key
-from pyglet import image
-# pyglet uses batches to optimize rendering process
-from pyglet.graphics import Batch
-# display positioned, scaled and rotated images.
-from pyglet.sprite import Sprite
-import time
-import random
-from car import Car
 from hud import Hud
+from car import Car
+import random
+import time
+from pyglet.sprite import Sprite
+from pyglet.graphics import Batch
+from pyglet import image
+from pyglet.window import key
+from pyglet.window import Window
+from pyglet.shapes import Circle
+from pyglet.text import Label
+# pyglet uses batches to optimize rendering process
+# display positioned, scaled and rotated images.
 
 
 # create a canvas to draw on
@@ -23,18 +25,20 @@ class Canvas(Window):
         self.background_batch = Batch()
         self.car_batch = Batch()
         self.overlay_batch = Batch()
-        self.track_image_sprite = Sprite(
-            track.track_image, batch=self.background_batch)
-        self.track_overlay_sprite = Sprite(
-            track.track_overlay_image, batch=self.overlay_batch)
+        self.track_image_sprite = Sprite(track.track_image, batch=self.background_batch)
+        self.track_overlay_sprite = Sprite(track.track_overlay_image, batch=self.overlay_batch)
         self.car_images = [image.load(c) for c in car_image_paths]
+        self.checkpoint_spirits = []
+        # each checkpoint will be a tuple of a circle and label
+        for i, checkpoint in enumerate(track.checkpoints):
+            self.checkpoint_spirits.append((Circle(checkpoint[0], checkpoint[1], 15, color=(255, 255, 255, 100), batch=self.background_batch),
+                                           Label(str(i), x=checkpoint[0], y=checkpoint[1], anchor_x="center", anchor_y="center", color=(255, 255, 255, 255), batch=self.background_batch)))
 
     def simulate_generation(self, networks, simulation_round):
         self.hud = Hud(simulation_round, self.overlay_batch)
         self.car_sprites = []
         for network in networks:  # create a car for each network in the list
-            self.car_sprites.append(
-                Car(network, self.track, random.choice(self.car_images), self.car_batch))
+            self.car_sprites.append(Car(network, self.track, random.choice(self.car_images), self.car_batch))
         self.population_total = len(self.car_sprites)
         self.population_alive = self.population_total
         last_time = time.perf_counter()
