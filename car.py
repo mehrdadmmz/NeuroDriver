@@ -5,7 +5,8 @@ import network
 
 
 class Radar:
-    max_length_pixel = 200  # max length of the radar in pixels which is the length of the line
+    # max length of the radar in pixels which is the length of the line
+    max_length_pixel = 200
 
     def __init__(self, angle, batch):
         self.angle = angle
@@ -24,7 +25,8 @@ class Car:
         self.body = Sprite(image, batch=batch)
         self.body.x, self.body.y = track.checkpoints[0]
         # adding 5 radars to the car, each radar will be at a different angle from the car
-        self.radars = Radar(-70, batch), Radar(-35, batch), Radar(0, batch), Radar(35, batch), Radar(70, batch)
+        self.radars = Radar(-70, batch), Radar(-35, batch), Radar(0,
+                                                                  batch), Radar(35, batch), Radar(70, batch)
         self.speed = 0.0
         self.rotation = 0.0  # starts at angle 0
         self.is_running = True
@@ -38,10 +40,12 @@ class Car:
         if self.is_running:
             # get the distance of the car from the walls of the track using the radar sensors
             # divide by the max length of the radar to normalize the value between 0 and 1
-            measurements = [self.probe(radar)/radar.max_length_pixel for radar in self.radars]
+            measurements = [self.probe(
+                radar)/radar.max_length_pixel for radar in self.radars]
 
             # inputs in the feed_forward will be the radar sensors on the car
-            acceleration, steer_position = self.network.feed_forward(measurements)
+            acceleration, steer_position = self.network.feed_forward(
+                measurements)
 
             if acceleration > 0:
                 self.speed += 0.1
@@ -62,8 +66,10 @@ class Car:
         self.body.rotation = -self.rotation  # apply rotation to the car Sprite
         # to make the car respect its position while steering --> making the car move in the direction pointing at
         # force will be the speed of the car and angle will be the rotation
-        self.body.x += self.speed * render_speed * math.cos(math.radians(self.rotation))
-        self.body.y += self.speed * render_speed * math.sin(math.radians(self.rotation))
+        self.body.x += self.speed * render_speed * \
+            math.cos(math.radians(self.rotation))
+        self.body.y += self.speed * render_speed * \
+            math.sin(math.radians(self.rotation))
 
     # probe function will be used to get the distance of the car from the walls of the track using the radar sensors
     # it
@@ -72,6 +78,7 @@ class Car:
         # set the start and end points of the radar beam to the center of the car
         radar.beam.x = self.body.x
         radar.beam.y = self.body.y
+
         x2 = radar.beam.x  # this is the end point of the radar beam in the x-axis
         y2 = radar.beam.y  # this is the end point of the radar beam in the y-axis
 
@@ -79,8 +86,10 @@ class Car:
         while probe_length < radar.max_length_pixel and self.track.is_road(x2, y2):
             probe_length += 1  # increment the probe length by 1 pixel
             # calculate the end point of the radar beam using the formula of a line
-            x2 = self.body.x + probe_length * math.cos(math.radians(self.rotation + radar.angle))
-            y2 = self.body.y + probe_length * math.sin(math.radians(self.rotation + radar.angle))
+            x2 = self.body.x + probe_length * \
+                math.cos(math.radians(self.rotation + radar.angle))
+            y2 = self.body.y + probe_length * \
+                math.sin(math.radians(self.rotation + radar.angle))
         # now the line end coordinate will be updated
         radar.beam.x2 = x2
         radar.beam.y2 = y2
