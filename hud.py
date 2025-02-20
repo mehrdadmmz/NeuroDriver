@@ -1,6 +1,7 @@
 from pyglet.text import Label
 
 
+# HUD: heads up display
 # The HUD class is responsible for displaying the current round, population, and speed of the cars.
 class Hud:
     def __init__(self, simulation_round, batch):
