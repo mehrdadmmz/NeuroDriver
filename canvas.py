@@ -1,3 +1,4 @@
+import math
 from hud import Hud
 from car import Car
 import random
@@ -29,7 +30,7 @@ class Canvas(Window):
         self.track_overlay_sprite = Sprite(track.track_overlay_image, batch=self.overlay_batch)
         self.car_images = [image.load(c) for c in car_image_paths]
         self.checkpoint_spirits = []
-        # each checkpoint will be a tuple of a circle and label
+        # each checkpoint will be a tuple of a circle and label, we will draw them on the screen
         for i, checkpoint in enumerate(track.checkpoints):
             self.checkpoint_spirits.append((Circle(checkpoint[0], checkpoint[1], 15, color=(255, 255, 255, 100), batch=self.background_batch),
                                            Label(str(i), x=checkpoint[0], y=checkpoint[1], anchor_x="center", anchor_y="center", color=(255, 255, 255, 255), batch=self.background_batch)))
@@ -57,12 +58,16 @@ class Canvas(Window):
             if car_sprite.is_running:
                 if not self.track.is_road(car_sprite.body.x, car_sprite.body.y):
                     car_sprite.shut_off()
+                self.check_checkpoints(car_sprite, self.track.checkpoints)
+
         running_cars = [c for c in self.car_sprites if c.is_running]
         self.population_alive = len(running_cars)
         if self.population_alive > 0:
             self.hud.update(self.population_alive,
-                            # speed of the first car alive
-                            self.population_total, running_cars[0].speed)
+                            self.population_total, running_cars[0].speed)  # speed of the first car alive
+
+
+
 
     def draw(self):
         self.clear()
@@ -75,3 +80,12 @@ class Canvas(Window):
         if symbol == key.ESCAPE:
             self.is_simulating = False
             print("Simulation aborted.")
+
+    # checking which checkpoints have been passed by the car. Loop through all checkpoints and calculate the distance
+    # between the center of the car and the center of the checkpoint.
+    def check_checkpoints(self, car_sprite, checkpoints):
+        for i, checkpoint in enumerate(checkpoints):
+            length = math.sqrt((checkpoint[0] - car_sprite.body.x) ** 2 +
+                               (checkpoint[1] - car_sprite.body.y) ** 2)
+            if length < 40:
+                car_sprite.hit_checkpoint(i)
