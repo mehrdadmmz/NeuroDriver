@@ -25,11 +25,12 @@ class Car:
         self.body = Sprite(image, batch=batch)
         self.body.x, self.body.y = track.checkpoints[0]
         # adding 5 radars to the car, each radar will be at a different angle from the car
-        self.radars = Radar(-70, batch), Radar(-35, batch), Radar(0,
-                                                                  batch), Radar(35, batch), Radar(70, batch)
+        self.radars = (Radar(-70, batch), Radar(-35, batch),
+                       Radar(0,batch), Radar(35, batch), Radar(70, batch))
         self.speed = 0.0
         self.rotation = 0.0  # starts at angle 0
         self.is_running = True
+        self.last_checkpoint_passed = 0  # set the first checkpoint as 0 that will be the starting point of the track
 
     def update(self, delta_time):
         # delta time should be around 1/60 th of a second, so we will ,multiply it by 60 to get a value around 1
@@ -96,6 +97,12 @@ class Car:
         # return the probe length
         return probe_length
 
+    def hit_checkpoint(self, id):
+        print(id)  # as long as a car is driving close to the checkpoints, the id of the checkpoint will be printed
+        if id - self.last_checkpoint_passed == 1: # if the car passes the checkpoints in order
+            self.last_checkpoint_passed = id  # update the last checkpoint passed
+        elif id < self.last_checkpoint_passed:  # driving in the wrong direction
+            self.shut_off()
     def shut_off(self):
         self.is_running = False
         self.radars = None  # remove the radars from the car when the engine is off
