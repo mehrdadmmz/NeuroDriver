@@ -69,9 +69,6 @@ class Canvas(Window):
             self.hud.update(self.population_alive,
                             self.population_total, running_cars[0].speed)  # speed of the first car alive
 
-
-
-
     def draw(self):
         self.clear()
         self.background_batch.draw()
