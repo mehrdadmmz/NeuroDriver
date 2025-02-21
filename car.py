@@ -98,8 +98,7 @@ class Car:
         return probe_length
 
     def hit_checkpoint(self, id):
-        print(id)  # as long as a car is driving close to the checkpoints, the id of the checkpoint will be printed
-        if id - self.last_checkpoint_passed == 1: # if the car passes the checkpoints in order
+        if id - self.last_checkpoint_passed == 1:  # if the car passes the checkpoints in order
             self.last_checkpoint_passed = id  # update the last checkpoint passed
         elif id < self.last_checkpoint_passed:  # driving in the wrong direction
             self.shut_off()
