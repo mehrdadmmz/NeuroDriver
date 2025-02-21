@@ -25,6 +25,11 @@ class Evolution:
                 offspring.append(c1[:split_index] + c2[split_index:])  # create offspring1 from c1 and c2
                 offspring.append(c2[:split_index] + c1[split_index:])  # create offspring2 from c1 and c2
 
-        # mutation
+        # mutation: we got stuck in a local minimum, we need to introduce some randomness to the population
+        # every gene in the offspring chromosomes has 20% chance to be reset with a random value
+        for chromosome in offspring[self.keep_count:]:
+            for i in range(len(chromosome)):
+                if random.randint(0, 4) == 1:  # 20% chance: 0, 1, 2, 3, 4 --> 1 is 20%
+                    chromosome[i] = random.random() * 2 - 1  # random value between -1 and 1
         assert len(offspring) == self.population_count, "Offspring count is not population count"
         return offspring

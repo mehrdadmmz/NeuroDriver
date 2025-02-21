@@ -13,7 +13,7 @@ canvas = Canvas(Track(1), car_image_paths)
 # Network and genetic algorithm configuration
 network_dimensions = 5, 4, 2  # input neurons, hidden layer neurons, output neurons
 population_count = 40
-max_generation_iterations = 5  # number of generations to simulate
+max_generation_iterations = 50  # number of generations to simulate
 keep_count = 4  # number of chromosomes to keep in each generation
 
 networks = [Network(network_dimensions) for _ in range(population_count)]
