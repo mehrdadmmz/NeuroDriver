@@ -41,12 +41,10 @@ class Car:
         if self.is_running:
             # get the distance of the car from the walls of the track using the radar sensors
             # divide by the max length of the radar to normalize the value between 0 and 1
-            measurements = [self.probe(
-                radar)/radar.max_length_pixel for radar in self.radars]
+            measurements = [self.probe(radar)/radar.max_length_pixel for radar in self.radars]
 
             # inputs in the feed_forward will be the radar sensors on the car
-            acceleration, steer_position = self.network.feed_forward(
-                measurements)
+            acceleration, steer_position = self.network.feed_forward(measurements)
 
             if acceleration > 0:
                 self.speed += 0.1
@@ -55,7 +53,10 @@ class Car:
                 self.speed = self.max_speed
 
             # * by speed cuz faster car will rotate faster
-            self.rotation -= steer_position * self.speed * render_speed
+            # I multiply the steer position by 3 to make the car steer faster. I know that the second output of the
+            # network is the steering position, and it ranges from -1 to 1, so I multiply it by 3 to make the car steer
+            # faster.
+            self.rotation -= steer_position * self.speed * render_speed * 3
 
         else:  # engine is off
             self.speed -= 0.05 * self.speed
