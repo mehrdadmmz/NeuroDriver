@@ -9,6 +9,7 @@ class NeuronSprite:
                                 anchor_x='center', anchor_y='center', batch=batch)
 
     # update the value of the neuron, make it green if positive, red if negative, Values range from -1 to 1
+    # since I only have room for visualizing one network, I will update the nodes with the first car network
     def update(self, value):
         self.node_value.text = f"{value:.2f}"
         if value > 0:

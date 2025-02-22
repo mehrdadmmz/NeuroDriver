@@ -6,7 +6,7 @@ import itertools
 # and 0 when we are off the road
 
 
-class Track():
+class Track:
     def __init__(self, index):
         self.track_image = image.load(os.path.join('images', f'track{index}.png'))
         self.track_overlay_image = image.load(os.path.join('images', f'track{index}-overlay.png'))

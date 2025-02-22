@@ -36,7 +36,8 @@ class Canvas(Window):
                                            Label(str(i), x=checkpoint[0], y=checkpoint[1], anchor_x="center", anchor_y="center", color=(255, 255, 255, 255), batch=self.background_batch)))
 
     def simulate_generation(self, networks, simulation_round):
-        self.hud = Hud(simulation_round, self.overlay_batch)
+        # since I only have room for visualizing one network, I will update the nodes with the first car network
+        self.hud = Hud(simulation_round, networks[0].dimensions, self.overlay_batch)
         self.car_sprites = []
         for network in networks:  # create a car for each network in the list
             self.car_sprites.append(Car(network, self.track, random.choice(self.car_images), self.car_batch))
@@ -66,8 +67,10 @@ class Canvas(Window):
         running_cars = [c for c in self.car_sprites if c.is_running]
         self.population_alive = len(running_cars)
         if self.population_alive > 0:
-            self.hud.update(self.population_alive,
-                            self.population_total, running_cars[0].speed)  # speed of the first car alive
+            self.hud.update(running_cars[0].network,
+                            self.population_alive,
+                            self.population_total,
+                            running_cars[0].speed)  # speed of the first car alive
 
     def draw(self):
         self.clear()
