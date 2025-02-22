@@ -57,8 +57,14 @@ class Car:
 
             # if the speed gets over the slipping speed, I will decrease the steering impact.
             # {x < t: 1, -x / m + t / m + 1}
-            if self.speed > self.slipping_speed:
+            # TODO: check the formula, as of now both are kinda similar, the commented one is non-quadratic
+            """if self.speed > self.slipping_speed:
                 steer_impact = -self.speed / self.max_speed + self.slipping_speed / self.max_speed + 1
+            else:
+                steer_impact = 1"""
+            if self.speed > self.slipping_speed:
+                factor = (self.speed - self.slipping_speed) / (self.max_speed - self.slipping_speed)
+                steer_impact = max(0.5, 1 - factor ** 2)
             else:
                 steer_impact = 1
 
@@ -110,3 +116,6 @@ class Car:
     def shut_off(self):
         self.is_running = False
         self.radars = None  # remove the radars from the car when the engine is off
+
+
+
