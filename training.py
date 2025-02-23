@@ -2,7 +2,7 @@ from canvas import Canvas
 from racetrack import Track
 from network import Network
 from evolution import Evolution
-from storage import  Storage
+from storage import Storage
 import os
 
 # composing car image's paths
@@ -33,6 +33,7 @@ while simulation_round <= max_generation_iterations and canvas.is_simulating:
     simulation_round += 1
     if canvas.is_simulating:
         print(f"-- Average checkpoint reached: {sum(n.highest_checkpoint for n in networks) / len(networks):.2f} --")
+        print(f"-- Average edge distance: {sum(n.smallest_edge_distance for n in networks[:keep_count]) / keep_count:.2f} --")
         print(f"-- Cars reached goal: {sum(n.has_reached_goal for n in networks)} of population {population_count} --")
 
         serialized = [network.serialize() for network in networks]
