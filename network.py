@@ -49,7 +49,7 @@ class Network:
                     # the weights matrices of all layers are flattened into a single list and together with the highest
                     # checkpoint, and now we can return them as an instance of RanbkableChromosome
                     chromosome.append(weight)
-        return RankableChromosome(self.highest_checkpoint, chromosome)
+        return RankableChromosome(self.highest_checkpoint, self.smallest_edge_distance, chromosome)
 
     # deserialize the chromosome back to the network weights and highest checkpoint
     def deserialize(self, chromosome):
@@ -70,14 +70,18 @@ class Network:
 
 
 class RankableChromosome:
-    def __init__(self, highest_checkpoint, chromosome):
+    def __init__(self, highest_checkpoint, smallest_edge_distance, chromosome):
         self.highest_checkpoint = highest_checkpoint
+        self.smallest_edge_distance = smallest_edge_distance
         self.chromosome = chromosome
 
     # fitness will determine how the population will be sorted, and we need a __lt__ method to compare two chromosomes
     def __lt__(self, other):
         """Allows sorting chromosomes for rank selection with the following rules:
-           - highest checkpoint appears on top of the list"""
+           - highest checkpoint appears on top of the list
+           - in case of same checkpoint, the car that kept mre distance comes first in the list"""
+        if self.highest_checkpoint == other.highest_checkpoint:
+            return self.smallest_edge_distance > other.smallest_edge_distance
         return self.highest_checkpoint > other.highest_checkpoint
 
 
