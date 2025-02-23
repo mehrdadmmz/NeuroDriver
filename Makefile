@@ -34,9 +34,9 @@ install: venv
 run: venv
 	$(VENV_DIR)/bin/$(PYTHON) training.py
 
-# Run tests using pytest (adjust if you use another testing framework)
+# Run tests using pytest 
 test: venv
-	$(VENV_DIR)/bin/$(PYTHON) -m pytest
+	$(VENV_DIR)/bin/$(PYTHON) test.py
 
 # Lint your code with flake8 (or another linter of your choice)
 lint: venv
