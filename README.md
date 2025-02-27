@@ -1,4 +1,4 @@
-# NeuroDriver
+# NeuroDriver 🧬🚗
 
 A fun **2D car simulation** that uses a **neural network** (built from scratch) to learn and navigate various racetracks.  
 This project leverages **Python**, **Pyglet** for rendering, and **genetic/evolutionary algorithms** for training the neural network—no heavy ML frameworks used!
@@ -70,6 +70,9 @@ NeuroDriver/
 │   ├── track0-overlay.png
 │   ├── track0.json    # Contains checkpoints & track data
 │   └── ... etc ...
+│
+├── screenshots/
+│   └── different_states_of_the_car 
 │
 ├── requirements.txt   # Python dependencies (pyglet, etc.)
 ├── Makefile           # Build automation & commands
