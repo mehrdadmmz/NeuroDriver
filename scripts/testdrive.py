@@ -1,8 +1,8 @@
 import os
-from canvas import Canvas
-from racetrack import Track
-from network import Network
-from storage import Storage
+from game.canvas import Canvas
+from game.racetrack import Track
+from neural.network import Network
+from utils.storage import Storage
 
 
 # Network configuration
