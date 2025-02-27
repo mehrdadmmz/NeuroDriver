@@ -43,19 +43,16 @@ In **NeuroDriver**, small cars drive around a racetrack. Each car has a simple *
 NeuroDriver/
 │
 ├── game/
-│   ├── __init__.py
 │   ├── car.py         # Car logic, radar, collision checks
 │   ├── canvas.py      # Main rendering window & simulation loop
 │   ├── hud.py         # Heads-up display rendering
 │   └── racetrack.py   # Loads track images & checkpoint data
 │
 ├── neural/
-│   ├── __init__.py
 │   ├── network.py     # Feed-forward neural network
 │   └── evolution.py   # Genetic algorithm (selection, crossover, mutation)
 │
 ├── utils/
-│   ├── __init__.py
 │   └── storage.py     # Save/load “brain” (serialized chromosomes) from JSON
 │
 ├── scripts/
@@ -65,7 +62,10 @@ NeuroDriver/
 ├── images/
 │   ├── car0.png
 │   ├── car1.png
-│   ├── ... etc ...
+│   ├── car2.png
+│   ├── car3.png
+│   ├── car4.png
+│   ├── parkinglot.png	
 │   ├── track0.png
 │   ├── track0-overlay.png
 │   ├── track0.json    # Contains checkpoints & track data
