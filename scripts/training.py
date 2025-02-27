@@ -1,8 +1,8 @@
-from canvas import Canvas
-from racetrack import Track
-from network import Network
-from evolution import Evolution
-from storage import Storage
+from game.canvas import Canvas
+from game.racetrack import Track
+from neural.network import Network
+from neural.evolution import Evolution
+from utils.storage import Storage
 import os
 
 # composing car image's paths
