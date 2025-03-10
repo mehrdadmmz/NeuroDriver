@@ -115,17 +115,38 @@ NeuroDriver simulates a population of cars, each with a small neural network con
    - After all cars finish or crash, the best networks get selected for the next generation.
 
 ## GIF Showcase
-1. Training on routes 0 to 3
+
+### Training on routes 0 to 3
+
 <p align="center">
-  <img src="assets/route_0.gif" width="550"/>
-  <img src="assets/route_1.gif" width="550"/>
-  <img src="assets/route_2.gif" width="550"/>
-  <img src="assets/route_3.gif" width="550"/>
+  <figure style="display:inline-block; margin: 20px; text-align:center;">
+    <figcaption>Route 0</figcaption>
+    <img src="assets/route_0.gif" width="550"/>
+  </figure>
+  <figure style="display:inline-block; margin: 20px; text-align:center;">
+    <figcaption>Route 1</figcaption>
+    <img src="assets/route_1.gif" width="550"/>
+  </figure>
+  <figure style="display:inline-block; margin: 20px; text-align:center;">
+    <figcaption>Route 2</figcaption>
+    <img src="assets/route_2.gif" width="550"/>
+  </figure>
+  <figure style="display:inline-block; margin: 20px; text-align:center;">
+    <figcaption>Route 3</figcaption>
+    <img src="assets/route_3.gif" width="550"/>
+  </figure>
 </p>
-2. Testing on an unseen route 4
+
+### Testing on an unseen route 4
+
 <p align="center">
-  <img src="assets/route_4.gif" width="550"/>
+  <figure style="display:inline-block; margin: 20px; text-align:center;">
+    <figcaption>Route 4</figcaption>
+    <img src="assets/route_4.gif" width="550"/>
+  </figure>
 </p>
+
+
 
 ## Usage
 1. Training on Routes 0–3
