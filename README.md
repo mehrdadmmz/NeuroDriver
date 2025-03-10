@@ -71,6 +71,13 @@ NeuroDriver/
 │   ├── track0.json    # Contains checkpoints & track data
 │   └── ... etc ...
 │
+├── assets/
+│   ├── route_0.gif
+│   ├── route_1.gif
+│   ├── route_2.gif
+│   ├── route_3.gif
+│   ├── route_4.gif
+│
 ├── screenshots/
 │   └── different_states_of_the_car 
 │
