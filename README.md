@@ -115,7 +115,17 @@ NeuroDriver simulates a population of cars, each with a small neural network con
    - After all cars finish or crash, the best networks get selected for the next generation.
 
 ## GIF Showcase
-empty for now
+1. Training on routes 0 to 3
+<p align="center">
+  <img src="assets/route_0.gif" width="550"/>
+  <img src="assets/route_1.gif" width="550"/>
+  <img src="assets/route_2.gif" width="550"/>
+  <img src="assets/route_3.gif" width="550"/>
+</p>
+2. Testing on an unseen route 4
+<p align="center">
+  <img src="assets/route_4.gif" width="550"/>
+</p>
 
 ## Usage
 1. Training on Routes 0–3
