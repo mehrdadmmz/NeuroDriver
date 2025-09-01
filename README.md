@@ -1,4 +1,9 @@
 # NeuroDriver 🧬🚗
+![Python](https://img.shields.io/badge/Python-3.x-blue?logo=python)
+![Pyglet](https://img.shields.io/badge/Pyglet-Rendering-green)
+![Genetic_Algorithm](https://img.shields.io/badge/Genetic-Algorithm-orange)
+![Makefile](https://img.shields.io/badge/Build-Makefile-yellow)
+![JSON](https://img.shields.io/badge/Data-JSON-lightgrey)
 
 A fun **2D car simulation** that uses a **neural network** (built from scratch) to learn and navigate various racetracks.  
 This project leverages **Python**, **Pyglet** for rendering, and **genetic/evolutionary algorithms** for training the neural network—no heavy ML frameworks used!
